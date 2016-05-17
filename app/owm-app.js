@@ -9,7 +9,7 @@ angular.module( 'OWMApp', ['ngRoute'])
 			controller: 'CityCtrl',
 			resolve: {
 				city: function( owmCities, $route, $location) {
-					var city = #route.current.params.city;
+					var city = $route.current.params.city;
 					if ( owmCities.indexOf(city) === -1) {
 						$location.path('/error');
 						return;
@@ -20,12 +20,16 @@ angular.module( 'OWMApp', ['ngRoute'])
 		})
 		.when( '/error', {
 			template: '<p>Error - Page Not Found</p>'
-		});
+		})
+		.otherwise( '/error');
 	}])
-	.value( 'owmCities', ['New York', 'Dallas', 'Chicago'])
+	.run( function( $rootScope, $location) {
+		$rootScope.$on( '$routeChangeError', function() {
+	        $location.path( '/error');
+	    });
+	})
+	.value( 'owmCities', ['New York', 'Dallas', 'Toronto'])
 	.controller( 'HomeCtrl', function( $scope) {})
-	.controller( 'CityCtrl', function( $scope, $routeParams, owmCities) {
-		var city = $routeParams.city;
-		if ( owmCities.indexOf(city) === -1) return;
+	.controller( 'CityCtrl', function( $scope, $routeParams, owmCities, city) {
 		$scope.city = city;
 	});
