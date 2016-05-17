@@ -1,0 +1,15 @@
+{
+  "name": "ngWeather",
+  "authors": [
+    "Melanie Burger <melanie.brgr@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.5.5",
+    "angular-route": "^1.5.5"
+  }
+}
