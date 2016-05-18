@@ -2,11 +2,11 @@ angular.module( 'OWMApp', ['ngRoute'])
 	.config( ['$routeProvider', function($routeProvider) {
 		$routeProvider.when('/', {
 			templateUrl: 'home.html',
-            controller: 'HomeCtrl'
+            controller: 'HomeCtrl as home'
 		})
 		.when( '/cities/:city', {
 			templateUrl: 'city.html',
-			controller: 'CityCtrl',
+			controller: 'CityCtrl as cities',
 			resolve: {
 				city: function( owmCities, $route, $location) {
 					var city = $route.current.params.city;
@@ -29,7 +29,9 @@ angular.module( 'OWMApp', ['ngRoute'])
 	    });
 	})
 	.value( 'owmCities', ['New York', 'Dallas', 'Toronto'])
-	.controller( 'HomeCtrl', function( $scope) {})
+	.controller( 'HomeCtrl', function() {
+		this.message = "Welcome Home!"
+	})
 	.controller( 'CityCtrl', function( $scope, $routeParams, owmCities, city) {
-		$scope.city = city;
+		this.city = city;
 	});
